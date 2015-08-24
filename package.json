@@ -1,0 +1,30 @@
+{
+  "name": "pingpong-api",
+  "version": "1.0.0",
+  "description": "A npm package for the Ping Pong API",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover _mocha test",
+    "lint": "jshint . && jscs ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathanchrisp/pingpong-api"
+  },
+  "author": "Jonathan Chrisp",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.54.0",
+    "underscore": "^1.8.3",
+    "url": "^0.10.3"
+  },
+  "devDependencies": {
+    "expectations": "^0.4.2",
+    "istanbul": "^0.3.13",
+    "jscs": "^1.12.0",
+    "jshint": "^2.6.3",
+    "mocha": "^2.2.1",
+    "proxyquire": "^1.4.0",
+    "sinon": "^1.14.1"
+  }
+}
