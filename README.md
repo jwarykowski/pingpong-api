@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/jonathanchrisp/pingpong-api.svg?branch=new-endpoints)](https://travis-ci.org/jonathanchrisp/pingpong-api)
-
+[![npm version](https://badge.fury.io/js/pingpong-api.svg)](http://badge.fury.io/js/pingpong-api)
 
 # pingpong-api
 A npm package for the Ping Pong API
