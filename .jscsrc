@@ -63,7 +63,7 @@
       "++",
       "--"
     ],
-    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
     "disallowKeywords": ["with"],
     "disallowMultipleLineStrings": true,
     "validateLineBreaks": "LF",

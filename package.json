@@ -1,10 +1,10 @@
 {
   "name": "pingpong-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A npm package for the Ping Pong API",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha test",
+    "test": "istanbul cover _mocha test && jshint . && jscs .",
     "lint": "jshint . && jscs ."
   },
   "repository": {
