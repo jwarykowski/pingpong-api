@@ -105,11 +105,15 @@ describe('index', function () {
             it('has api methods', function () {
                 expect(pingPongApi.players).toBeDefined();
                 expect(pingPongApi.player).toBeDefined();
+                expect(pingPongApi.playerExists).toBeDefined();
                 expect(pingPongApi.createPlayer).toBeDefined();
                 expect(pingPongApi.updatePlayer).toBeDefined();
                 expect(pingPongApi.deletePlayer).toBeDefined();
                 expect(pingPongApi.games).toBeDefined();
                 expect(pingPongApi.createGame).toBeDefined();
+                expect(pingPongApi.skillDraw).toBeDefined();
+                expect(pingPongApi.skillClosest).toBeDefined();
+                expect(pingPongApi.skillHistory).toBeDefined();
             });
         });
     });
@@ -945,6 +949,51 @@ describe('index', function () {
         });
     });
 
+    describe('playerExists', function () {
+        var getStub,
+            playerExists;
+
+        beforeEach(function () {
+            pingPongApi = new PingPongAPI({
+                host: 'yourhost.com'
+            });
+
+            getStub = sandbox.stub(pingPongApi, 'get');
+            playerExists = sandbox.spy(pingPongApi, 'playerExists');
+        });
+
+        describe('with options', function () {
+            beforeEach(function () {
+                pingPongApi.playerExists({
+                    body: {
+                        google_id: 1
+                    },
+                }, function () {});
+            });
+
+            it('it calls playerExists and passes the correct arguments', function () {
+                expect(playerExists.calledOnce).toEqual(true);
+                expect(playerExists.args[0][0]).toEqual({
+                    body: {
+                        google_id: 1
+                    }
+                });
+                expect(typeof(playerExists.args[0][1])).toEqual('function');
+            });
+
+            it('it calls get and passes the correct arguments', function () {
+                expect(getStub.calledOnce).toEqual(true);
+                expect(getStub.args[0][0]).toEqual('/players/exists');
+                expect(getStub.args[0][1]).toEqual({
+                    body: {
+                        google_id: 1
+                    }
+                });
+                expect(typeof(getStub.args[0][2])).toEqual('function');
+            });
+        });
+    });
+
     describe('createPlayer', function () {
         var postStub,
             createPlayerSpy;
@@ -1150,6 +1199,39 @@ describe('index', function () {
         });
     });
 
+    describe('game', function () {
+        var getStub,
+            gameSpy;
+
+        beforeEach(function () {
+            pingPongApi = new PingPongAPI({
+                host: 'yourhost.com'
+            });
+
+            getStub = sandbox.stub(pingPongApi, 'get');
+            gameSpy = sandbox.spy(pingPongApi, 'game');
+        });
+
+        describe('with no options', function () {
+            beforeEach(function () {
+                pingPongApi.game('1', function () {});
+            });
+
+            it('it calls game and passes the correct arguments', function () {
+                expect(gameSpy.calledOnce).toEqual(true);
+                expect(gameSpy.args[0][0]).toEqual('1');
+                expect(typeof(gameSpy.args[0][1])).toEqual('function');
+            });
+
+            it('it calls get and passes the correct arguments', function () {
+                expect(getStub.calledOnce).toEqual(true);
+                expect(getStub.args[0][0]).toEqual('/game/1');
+                expect(typeof(getStub.args[0][1])).toEqual('function');
+                expect(getStub.args[0][2]).toEqual(undefined);
+            });
+        });
+    });
+
     describe('createGame', function () {
         var postStub,
             createGameSpy;
@@ -1299,6 +1381,177 @@ describe('index', function () {
                     }
                 });
                 expect(typeof(postStub.args[0][2])).toEqual('function');
+            });
+        });
+    });
+
+    describe('skillDraw', function () {
+        var getStub,
+            skillDrawSpy;
+
+        beforeEach(function () {
+            pingPongApi = new PingPongAPI({
+                host: 'yourhost.com'
+            });
+
+            getStub = sandbox.stub(pingPongApi, 'get');
+            skillDrawSpy = sandbox.spy(pingPongApi, 'skillDraw');
+        });
+
+        describe('with options', function () {
+            beforeEach(function () {
+                pingPongApi.skillDraw({
+                    body: {
+                        player_one_id: 1,
+                        player_two_id: 2
+                    }
+                }, function () {});
+            });
+
+            it('it calls skillDraw and passes the correct arguments', function () {
+                expect(skillDrawSpy.calledOnce).toEqual(true);
+                expect(skillDrawSpy.args[0][0]).toEqual({
+                    body: {
+                        player_one_id: 1,
+                        player_two_id: 2
+                    }
+                });
+                expect(typeof(skillDrawSpy.args[0][1])).toEqual('function');
+            });
+
+            it('it calls get and passes the correct arguments', function () {
+                expect(getStub.calledOnce).toEqual(true);
+                expect(getStub.args[0][0]).toEqual('/skill/draw');
+                expect(getStub.args[0][1]).toEqual({
+                    body: {
+                        player_one_id: 1,
+                        player_two_id: 2
+                    }
+                });
+                expect(typeof(getStub.args[0][2])).toEqual('function');
+            });
+        });
+    });
+
+    describe('skillClosest', function () {
+        var getStub,
+            skillClosestSpy;
+
+        beforeEach(function () {
+            pingPongApi = new PingPongAPI({
+                host: 'yourhost.com'
+            });
+
+            getStub = sandbox.stub(pingPongApi, 'get');
+            skillClosestSpy = sandbox.spy(pingPongApi, 'skillClosest');
+        });
+
+        describe('with options', function () {
+            beforeEach(function () {
+                pingPongApi.skillClosest(1, {
+                    body: {
+                        number_of_players: 5
+                    }
+                }, function () {});
+            });
+
+            it('it calls skillClosest and passes the correct arguments', function () {
+                expect(skillClosestSpy.calledOnce).toEqual(true);
+                expect(skillClosestSpy.args[0][0]).toEqual(1);
+                expect(skillClosestSpy.args[0][1]).toEqual({
+                    body: {
+                        number_of_players: 5
+                    }
+                });
+                expect(typeof(skillClosestSpy.args[0][2])).toEqual('function');
+            });
+
+            it('it calls get and passes the correct arguments', function () {
+                expect(getStub.calledOnce).toEqual(true);
+                expect(getStub.args[0][0]).toEqual('/skill/closest/1');
+                expect(getStub.args[0][1]).toEqual({
+                    body: {
+                        number_of_players: 5
+                    }
+                });
+                expect(typeof(getStub.args[0][2])).toEqual('function');
+            });
+        });
+    });
+
+    describe('skillHistory', function () {
+        var getStub,
+            skillHistorySpy;
+
+        beforeEach(function () {
+            pingPongApi = new PingPongAPI({
+                host: 'yourhost.com'
+            });
+
+            getStub = sandbox.stub(pingPongApi, 'get');
+            skillHistorySpy = sandbox.spy(pingPongApi, 'skillHistory');
+        });
+
+        describe('with options', function () {
+            beforeEach(function () {
+                pingPongApi.skillHistory(1, {
+                    body: {
+                        days: 5
+                    }
+                }, function () {});
+            });
+
+            it('it calls skillHistory and passes the correct arguments', function () {
+                expect(skillHistorySpy.calledOnce).toEqual(true);
+                expect(skillHistorySpy.args[0][0]).toEqual(1);
+                expect(skillHistorySpy.args[0][1]).toEqual({
+                    body: {
+                        days: 5
+                    }
+                });
+                expect(typeof(skillHistorySpy.args[0][2])).toEqual('function');
+            });
+
+            it('it calls get and passes the correct arguments', function () {
+                expect(getStub.calledOnce).toEqual(true);
+                expect(getStub.args[0][0]).toEqual('/skill/history/1');
+                expect(getStub.args[0][1]).toEqual({
+                    body: {
+                        days: 5
+                    }
+                });
+                expect(typeof(getStub.args[0][2])).toEqual('function');
+            });
+        });
+    });
+
+    describe('token', function () {
+        var getStub,
+            tokenSpy;
+
+        beforeEach(function () {
+            pingPongApi = new PingPongAPI({
+                host: 'yourhost.com'
+            });
+
+            getStub = sandbox.stub(pingPongApi, 'get');
+            tokenSpy = sandbox.spy(pingPongApi, 'token');
+        });
+
+        describe('with options', function () {
+            beforeEach(function () {
+                pingPongApi.token(function () {});
+            });
+
+            it('it calls token and passes the correct arguments', function () {
+                expect(tokenSpy.calledOnce).toEqual(true);
+                expect(typeof(tokenSpy.args[0][0])).toEqual('function');
+            });
+
+            it('it calls get and passes the correct arguments', function () {
+                expect(getStub.calledOnce).toEqual(true);
+                expect(getStub.args[0][0]).toEqual('/token');
+                expect(typeof(getStub.args[0][1])).toEqual('function');
             });
         });
     });

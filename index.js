@@ -58,6 +58,10 @@ PingPongAPI.prototype.player = function (id, opts, cb) {
     this.get('/players/' + id, opts, cb);
 };
 
+PingPongAPI.prototype.playerExists = function (opts, cb) {
+    this.get('/players/exists', opts, cb);
+};
+
 PingPongAPI.prototype.createPlayer = function (opts, cb) {
     this.post('/players/', opts, cb);
 };
@@ -74,6 +78,10 @@ PingPongAPI.prototype.games = function (opts, cb) {
     this.get('/games', opts, cb);
 };
 
+PingPongAPI.prototype.game = function (id, opts, cb) {
+    this.get('/game/' + id, opts, cb);
+};
+
 PingPongAPI.prototype.createGame = function (opts, cb) {
     this.post('/games/', opts, cb);
 };
@@ -88,6 +96,10 @@ PingPongAPI.prototype.skillClosest = function (id, opts, cb) {
 
 PingPongAPI.prototype.skillHistory = function (id, opts, cb) {
     this.get('/skill/history/' + id, opts, cb);
+};
+
+PingPongAPI.prototype.token = function (cb) {
+    this.get('/token', cb);
 };
 
 module.exports = PingPongAPI;
